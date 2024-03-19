@@ -1,0 +1,13 @@
+{
+    "name": "echo2devnull/currency-exchanger",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "require": {
+        "symfony/http-client": "^7.0"
+    }
+}
