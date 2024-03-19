@@ -29,7 +29,7 @@ class FeeCalculator implements FeeCalculatorInterface
             $rateDto = $this->rateProvider->getRate($rowDto);
             $rate = $rateDto->getAmount();
 
-            $transactionAmount = $rowDto->getCurrency() === self::CURRENCY_EUR || $rate === 0.0
+            $transactionAmount = $rowDto->getCurrency() === self::CURRENCY_EUR
                 ? $rowDto->getAmount()
                 : $rowDto->getAmount() / $rate;
 

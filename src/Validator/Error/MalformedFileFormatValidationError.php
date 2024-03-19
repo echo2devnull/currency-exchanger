@@ -10,7 +10,6 @@ class MalformedFileFormatValidationError implements ValidatorErrorInterface
     {
     }
 
-
     #[\Override]
     public function getMessage(): string
     {
