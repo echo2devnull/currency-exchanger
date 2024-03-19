@@ -3,7 +3,6 @@
 namespace App\Tests\Unit\Calculator;
 
 use App\Calculator\FeeCalculator;
-use App\Dto\BankDto;
 use App\Dto\BinDto;
 use App\Dto\CountryDto;
 use App\Dto\FileRowDto;
@@ -19,9 +18,8 @@ class FeeCalculatorTest extends Unit
     {
         $rowDto = new FileRowDto(12345, 100.00, 'EUR');
 
-        $bankDto = new BankDto('New Wave Bancorp');
         $countryDto = new CountryDto('Germany', 'DE');
-        $binDto = new BinDto($bankDto, $countryDto);
+        $binDto = new BinDto($countryDto);
 
         $binProviderMock = $this->createMock(BinProviderInterface::class);
         $binProviderMock->method('getBin')->willReturn($binDto);
@@ -44,9 +42,8 @@ class FeeCalculatorTest extends Unit
     {
         $rowDto = new FileRowDto(12345, 50.00, 'USD');
 
-        $bankDto = new BankDto('New Wave Bancorp');
         $countryDto = new CountryDto('USA', 'US');
-        $binDto = new BinDto($bankDto, $countryDto);
+        $binDto = new BinDto($countryDto);
 
         $binProviderMock = $this->createMock(BinProviderInterface::class);
         $binProviderMock->method('getBin')->willReturn($binDto);
@@ -62,16 +59,15 @@ class FeeCalculatorTest extends Unit
         $fees = $calculator->calculate([$rowDto]);
 
         $this->assertCount(1, $fees);
-        $this->assertEquals(0.9204334100023683, $fees[0]->getAmount());
+        $this->assertEquals(0.93, $fees[0]->getAmount());
     }
 
     public function testCalculateFeeForEUCountryWithNonEURCurrency(): void
     {
         $rowDto = new FileRowDto(12345, 2000.00, 'GBR');
 
-        $bankDto = new BankDto('New Wave Bancorp');
         $countryDto = new CountryDto('Poland', 'PL');
-        $binDto = new BinDto($bankDto, $countryDto);
+        $binDto = new BinDto($countryDto);
 
         $binProviderMock = $this->createMock(BinProviderInterface::class);
         $binProviderMock->method('getBin')->willReturn($binDto);
@@ -88,16 +84,15 @@ class FeeCalculatorTest extends Unit
         $fees = $calculator->calculate([$rowDto]);
 
         $this->assertCount(1, $fees);
-        $this->assertEquals(23.416420647897235, $fees[0]->getAmount());
+        $this->assertEquals(23.42, $fees[0]->getAmount());
     }
 
     public function testCalculateFeeForNonEUCountryWithEURCurrency(): void
     {
         $rowDto = new FileRowDto(12345, 1100.00, 'EUR');
 
-        $bankDto = new BankDto('New Wave Bancorp');
         $countryDto = new CountryDto('Brazil', 'BR');
-        $binDto = new BinDto($bankDto, $countryDto);
+        $binDto = new BinDto($countryDto);
 
         $binProviderMock = $this->createMock(BinProviderInterface::class);
         $binProviderMock->method('getBin')->willReturn($binDto);

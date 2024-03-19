@@ -16,6 +16,9 @@ class BinListNetBinProvider implements BinProviderInterface
     private const string HTTP_METHOD_GET = 'GET';
     private const int HTTP_RESPONSE_OK = 200;
 
+    private const string UNKNOWN_COUNTRY_NAME = 'Unknown';
+    private const string UNKNOWN_COUNTRY_ALPHA = '??';
+
     /**
      * @var array<int, \App\Dto\BinDto>
      */
@@ -60,10 +63,11 @@ class BinListNetBinProvider implements BinProviderInterface
 
     protected function mapBinDataToBinDto(array $binData): BinDto
     {
-        var_dump($binData);
-        $bankDto = new BankDto($binData['bank']['name']);
-        $countryDto = new CountryDto($binData['country']['name'], $binData['country']['alpha2']);
+        $countryDto = new CountryDto(
+            $binData['country']['name'] ?? static::UNKNOWN_COUNTRY_NAME,
+            $binData['country']['alpha2'] ?? static::UNKNOWN_COUNTRY_ALPHA
+        );
 
-        return new BinDto($bankDto, $countryDto);
+        return new BinDto($countryDto);
     }
 }

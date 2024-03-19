@@ -2,7 +2,6 @@
 
 namespace App\Tests\Unit\Provider;
 
-use App\Dto\BankDto;
 use App\Dto\BinDto;
 use App\Dto\CountryDto;
 use App\Dto\FileRowDto;
@@ -31,7 +30,7 @@ class BinListNetBinProviderTest extends TestCase
         $result = (new BinListNetBinProvider($httpClientMock))->getBin($fileRowDto);
 
         $this->assertInstanceOf(BinDto::class, $result);
-        $this->assertEquals(new BinDto(new BankDto('Sample Bank'), new CountryDto('Sample Country', 'SC')), $result);
+        $this->assertEquals(new BinDto(new CountryDto('Sample Country', 'SC')), $result);
     }
 
     public function testGetBinThrowsExceptionWhenExternalServiceReturnsNon200StatusCode(): void

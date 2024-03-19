@@ -36,11 +36,19 @@ class FeeCalculator implements FeeCalculatorInterface
             $feeRate = $this->countryReader->isEUCountry($binDto->getCountryDto())
                 ? static::RATE_EU
                 : static::RATE_GENERAL;
-            $feeAmount = $transactionAmount * $feeRate;
+            $feeAmount = $this->formatAmount($transactionAmount * $feeRate);
 
             $feeDtos[] = new FeeDto($feeAmount);
         }
 
         return $feeDtos;
+    }
+
+    protected function formatAmount(float $amount): float
+    {
+        $decimalPlaces = 2;
+        $multiplier = pow(10, $decimalPlaces);
+
+        return ceil($amount * $multiplier) / $multiplier;
     }
 }
