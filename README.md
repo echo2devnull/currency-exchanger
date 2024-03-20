@@ -21,7 +21,7 @@ If both commands display version information, Docker and Docker Compose are alre
 ## Setting up Environment
 1. Install dependencies by running `composer intsall`.
 2. Create a `local.env` file based on `local.env.dist` provided in the project root.
-3. Update the value for the `EXCHANGE_RATES_API_NET_API_KEY` variable in the local.env file with your actual API key.  If you don't have an API key, you can use the demo key provided below:
+3. Update the value for the `EXCHANGE_RATES_API_NET_API_KEY` variable in the `local.env` file with your actual API key.  If you don't have an API key, you can use the demo key provided below:
 ```plaintext
 EXCHANGE_RATES_API_NET_API_KEY=pz66lkXU9uEsIB5a 
 ```
